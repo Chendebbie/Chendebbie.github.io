@@ -291,7 +291,7 @@
     display: block;
     width: 20px;
     height: 20px;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 2);
     bottom: -100px;
     border-radius: 50%;
     animation: rise 10s infinite ease-in;
