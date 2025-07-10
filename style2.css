@@ -74,7 +74,7 @@
 
         .hero .subtitle {
             font-size: 1.3rem;
-            color: rgba(255,255,255,0.9);
+            color: var(--primary-color);
             margin-bottom: 2rem;
         }
 
