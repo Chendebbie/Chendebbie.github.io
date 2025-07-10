@@ -275,6 +275,7 @@
                 grid-template-columns: 1fr;
             }
         }
+/* 泡泡動畫效果 */
 .bubbles {
     position: absolute;
     top: 0;
