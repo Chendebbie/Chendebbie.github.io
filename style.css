@@ -3,7 +3,7 @@
             --secondary-color: #3498db;
             --accent-color: #e74c3c;
             --text-color: #2c3e50;
-            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --bg-gradient: linear-gradient(135deg, #e0f7ff 0%, #b2e0f7 100%);
         }
 
         * {
