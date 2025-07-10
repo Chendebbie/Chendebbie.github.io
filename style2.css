@@ -313,3 +313,8 @@
         opacity: 0;
     }
 }
+.hero .container {
+    position: relative;
+    z-index: 2;
+}
+
