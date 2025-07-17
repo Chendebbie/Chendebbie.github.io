@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My 2025 AI Personal Website</title>
+    <title>My 2025 Personal Website</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style2.css">
@@ -13,7 +13,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#home">2025 AI</a>
+            <a class="navbar-brand" href="#home">2025 Personal</a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -72,7 +72,7 @@
     <!-- About Section -->
     <section id="about" class="section">
         <div class="container">
-            <h2 class="section-title">關於我</h2>
+            <h2 class="section-title">關於Debbie</h2>
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="card fade-in">
@@ -93,11 +93,11 @@
 
             <!-- Filter Buttons -->
             <div class="filter-buttons fade-in">
-                <button class="btn filter-btn active" onclick="filterProjects('all')">全部</button>
-                <button class="btn filter-btn" onclick="filterProjects('cognitive')">感知型AI</button>
-                <button class="btn filter-btn" onclick="filterProjects('generative')">生成型AI</button>
-                <button class="btn filter-btn" onclick="filterProjects('agentic')">Agentic AI</button>
-                <button class="btn filter-btn" onclick="filterProjects('tools')">其他工具</button>
+                <button class="btn filter-btn active" onclick="filterProjects('all')">All</button>
+                <button class="btn filter-btn" onclick="filterProjects('innovation')">Innovation & Strategy</button>
+                <button class="btn filter-btn" onclick="filterProjects('marketing')">Marketing & Communication</button>
+                <button class="btn filter-btn" onclick="filterProjects('technology')">Technology & Insight</button>
+                <button class="btn filter-btn" onclick="filterProjects('leadership')">Leadership & Growth</button>
             </div>
 
             <!-- Projects Grid -->
@@ -150,7 +150,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Dr. Pin Luarn. 版權所有。</p>
+            <p>&copy; 2025 Wen-Yu Chen. Designed for ASML Campus Ambassador application.</p>
         </div>
     </footer>
 
@@ -165,7 +165,8 @@
             expertise: "電子商務、網路行銷、AI應用",
             education: "臺灣科技大學企業管理系碩士",
             email: "dcwy0514@mail.ntust.edu.tw",
-            about: "陳玟妤Debbie在國立高雄大學取得企業管理學士學位，隨後在臺灣科技大學攻讀碩士學位。",
+            about: "Curious, creative, and committed to change — I bring a diverse background in business, law, and emerging tech to every project I join. From ESG research and AI analytics to campus events and brand campaigns, I love making ideas happen. I thrive in roles that combine big-picture thinking with hands-on execution, especially when it involves teamwork, innovation, and social impact.
+",
             contactEmail: "M11308043@mail.ntust.edu.tw",
             phone: "0968766567",
             location: "實驗室: T2-409<br>國立臺灣科技大學"
@@ -174,18 +175,18 @@
 
         // Project data
          const projects = [
-            {id: 1, category: 'tools', title: 'Unit #1', description: '網頁, MediaPipe, 環境 - 其他工具專案、感知型AI'},
-            {id: 2, category: 'tools', title: 'Unit #2', description: 'CV2 - 其他工具專案'},
-            {id: 3, category: 'cognitive', title: 'Unit #3', description: 'Object Detection - 感知型AI'},
-            {id: 4, category: 'cognitive', title: 'Unit #4', description: 'Image Segmentation - 感知型AI'},
-            {id: 5, category: 'cognitive', title: 'Unit #5', description: 'Face Detection - 感知型AI'},
-            {id: 6, category: 'cognitive', title: 'Unit #6', description: 'Face Landmark Detection - 感知型AI'},
-            {id: 7, category: 'cognitive', title: 'Unit #7', description: 'Pose Landmark Detection - 感知型AI'},
-            {id: 8, category: 'cognitive', title: 'Unit #8', description: 'Hand Landmarks - 感知型AI'},
-            {id: 9, category: 'cognitive', title: 'Unit #9', description: 'Gesture recognition - 感知型AI'},
-            {id: 10, category: 'tools', title: 'Unit #10', description: 'Streamlit - 其他工具專案'},
-            {id: 11, category: 'generative', title: 'Unit #11', description: 'Local LLM - 生成型AI'},
-            {id: 12, category: 'generative', title: 'Unit #12', description: 'Neural Style Transfer - 生成型AI'},
+            {id: 1, category: 'innovation', title: 'Innovation & Strategy', description: 'IONEX × TOURNII Co-Branding Campaign'},
+            {id: 2, category: 'innovation', title: 'Innovation & Strategy', description: 'NAPL Customer Segmentation'},
+            {id: 3, category: 'innovation', title: 'Innovation & Strategy', description: 'ASICS Omnichannel Experience Redesign'},
+            {id: 4, category: 'marketing', title: 'Marketing & Communication', description: 'Clinique 14-Day IG Campaign'},
+            {id: 5, category: 'marketing', title: 'Marketing & Communication', description: 'Pamela Reif on Xiaohongshu'},
+            {id: 6, category: 'marketing', title: 'Marketing & Communication', description: 'Brand Enhancement Strategies of McDonald's'},
+            {id: 7, category: 'technology', title: 'Technology & Insight', description: 'Stock Price Prediction Model'},
+            {id: 8, category: 'technology', title: 'Technology & Insight', description: 'Tech Policy Internship'},
+            {id: 9, category: 'technology', title: 'Technology & Insight', description: 'Python Automation System'},
+            {id: 10, category: 'leadership', title: 'Leadership & Growth', description: 'Teaching Assistant'},
+            {id: 11, category: 'leadership', title: 'Leadership & Growth', description: 'Google Certifications'},
+            {id: 12, category: 'leadership', title: 'Leadership & Growth', description: 'BBA + Minor in Financial & Economic Law'},
             {id: 13, category: 'generative', title: 'Unit #13', description: 'Torch - 生成型AI'},
             {id: 14, category: 'generative', title: 'Unit #14', description: 'Arbitrary-image Real time NST - 生成型AI'},
             {id: 15, category: 'cognitive', title: 'Unit #15', description: 'YOLO - 感知型AI'},
