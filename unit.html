@@ -155,7 +155,7 @@
             color: #666;
             z-index: 999;
             backdrop-filter: blur(5px);
-            border: 1px solid rgba(52, 152, 219, 0.2;
+            border: 1px solid rgba(52, 152, 219, 0.2);
             opacity: 0;
             animation: fadeInHint 0.5s ease 2s forwards;
         }
@@ -476,8 +476,10 @@
         function updatePageContent() {
             const unit = unitInfo[currentUnit];
             const unitFullTitle = unit.name; // ✅ 將標題改為專案名稱本身
+            const unitText = `Unit #${currentUnit}`;
             const subtitleText = `第${currentUnit}單元的作業 - ${unit.attributes.join('、')}`;
             const titleText = `${unitFullTitle} - 專案詳情 | 2025 AI`;
+            
 
             // Update page title
             document.title = titleText;
