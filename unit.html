@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Details | 2025 AI</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/pic/favicon.ico">
+    <style>
+        /* 基本樣式 */
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            padding-top: 80px;
+        }
+
+        .navbar {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #3498db !important;
+        }
+
+        /* Unit Navigation Styles */
+        .unit-nav-container {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .unit-nav-left {
+            left: 20px;
+        }
+
+        .unit-nav-right {
+            right: 20px;
+        }
+
+        .unit-nav-btn {
+            background: rgba(52, 152, 219, 0.7);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            pointer-events: auto;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .unit-nav-btn:hover {
+            background: rgba(52, 152, 219, 1);
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .unit-nav-btn:disabled {
+            background: rgba(200, 200, 200, 0.5);
+            color: rgba(255, 255, 255, 0.5);
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .unit-counter {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(52, 152, 219, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Project Header */
+        .project-header {
+            background: linear-gradient(135deg, #3498db 0%, #9b59b6 100%);
+            color: white;
+            padding: 60px 0 40px;
+            margin-bottom: 40px;
+        }
+
+        .back-btn {
+            color: white;
+            text-decoration: none;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .back-btn:hover {
+            color: white;
+            transform: translateX(-5px);
+        }
+
+        .breadcrumb {
+            background: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        .breadcrumb-item a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+
+        .breadcrumb-item.active {
+            color: white;
+        }
+
+        .project-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .project-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+
+        /* Content Section */
+        .content-section {
+            margin-bottom: 50px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .content-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #3498db, #9b59b6);
+        }
+
+        /* Media Gallery Styles */
+        .media-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .media-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .media-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .media-preview {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #f1f2f6, #e9ecef);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .media-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .media-icon {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 10px;
+        }
+
+        .media-info {
+            padding: 20px;
+        }
+
+        .media-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .media-description {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .media-type {
+            display: inline-block;
+            background: linear-gradient(45deg, #3498db, #9b59b6);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* File Upload Area */
+        .file-upload-area {
+            border: 2px dashed #3498db;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            background: rgba(52, 152, 219, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .file-upload-area:hover {
+            border-color: #2980b9;
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .file-upload-area.drag-over {
+            border-color: #9b59b6;
+            background: rgba(155, 89, 182, 0.1);
+        }
+
+        .upload-icon {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+
+        .upload-text {
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+
+        .upload-hint {
+            font-size: 0.9rem;
+            color: #bdc3c7;
+        }
+
+        /* Hidden file input */
+        .file-input {
+            display: none;
+        }
+
+        /* Modal Styles */
+        .modal-content {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #3498db 0%, #9b59b6 100%);
+            color: white;
+            border-bottom: none;
+        }
+
+        .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .media-gallery {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .project-title {
+                font-size: 2rem;
+            }
+            
+            .unit-nav-container {
+                position: fixed;
+                top: auto;
+                bottom: 100px;
+                transform: none;
+            }
+        }
+
+        /* Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">2025 Personal</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#home">首頁</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#about">關於我</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#projects">我的專案</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#contact">聯絡我</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Unit Navigation - Left -->
+    <div class="unit-nav-container unit-nav-left">
+        <button class="unit-nav-btn" id="prevUnitBtn" onclick="navigateToUnit(currentUnit - 1)">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+    </div>
+
+    <!-- Unit Navigation - Right -->
+    <div class="unit-nav-container unit-nav-right">
+        <button class="unit-nav-btn" id="nextUnitBtn" onclick="navigateToUnit(currentUnit + 1)">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </div>
+
+    <!-- Unit Counter -->
+    <div class="unit-counter" id="unitCounter">
+        專案 1 / 12
+    </div>
+
+    <!-- Project Header -->
+    <section class="project-header">
+        <div class="container">
+            <a href="index.html#projects" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                <span>返回專案列表</span>
+            </a>
+
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">首頁</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="index.html#projects">專案</a>
+                    </li>
+                    <li class="breadcrumb-item active" id="breadcrumb-unit">專案</li>
+                </ol>
+            </nav>
+
+            <h1 class="project-title" id="project-title">專案</h1>
+            <p class="project-subtitle" id="project-subtitle">
+                專案詳情
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Project Description -->
+        <section class="content-section fade-in">
+            <h2 class="section-title">專案描述</h2>
+            <div class="row">
+                <div class="col-lg-8">
+                    <p class="lead" id="project-description">
+                        這是一個詳細的專案描述，展示了我在此專案中的貢獻和成果。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Media Gallery -->
+        <section class="content-section fade-in">
+            <h2 class="section-title">專案展示</h2>
+            <div class="media-gallery" id="mediaGallery">
+                <!-- Media items will be dynamically generated -->
+            </div>
+        </section>
+    </div>
+
+    <!-- File Upload Modal -->
+    <div class="modal fade" id="uploadModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">上傳文件</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="file-upload-area" id="fileUploadArea">
+                        <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                        <div class="upload-text">拖放文件到此處或點擊選擇文件</div>
+                        <div class="upload-hint">支援圖片、PDF、PPT、影片等格式</div>
+                        <input type="file" class="file-input" id="fileInput" multiple accept=".jpg,.jpeg,.png,.gif,.pdf,.ppt,.pptx,.mp4,.mov,.avi">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Media Preview Modal -->
+    <div class="modal fade" id="mediaModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mediaModalTitle">媒體預覽</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="mediaModalBody">
+                    <!-- Media content will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let currentUnit = 1;
+        const totalUnits = 12;
+
+        // Unit information
+        const unitInfo = {
+            1: { 
+                name: "IONEX × TOURNII Co-Branding Campaign", 
+                category: "Innovation & Strategy",
+                description: "創新的共同品牌行銷活動，結合IONEX電動車與TOURNII平台的優勢，打造全新的移動服務體驗。",
+                mediaSlots: [
+                    { id: 1, title: "活動企劃書", type: "document", description: "完整的行銷活動企劃與策略分析" },
+                    { id: 2, title: "視覺設計", type: "image", description: "品牌視覺設計與創意展示" },
+                    { id: 3, title: "成果報告", type: "presentation", description: "活動執行成果與數據分析" }
+                ]
+            },
+            2: { 
+                name: "NAPL Customer Segmentation", 
+                category: "Innovation & Strategy",
+                description: "針對NAPL客戶進行深度分析與市場區隔，提供精準的客戶洞察與行銷策略建議。",
+                mediaSlots: [
+                    { id: 1, title: "數據分析報告", type: "document", description: "客戶行為分析與市場洞察" },
+                    { id: 2, title: "視覺化圖表", type: "image", description: "客戶區隔視覺化展示" },
+                    { id: 3, title: "策略建議", type: "presentation", description: "基於分析結果的策略建議" }
+                ]
+            },
+            3: { 
+                name: "ASICS Omnichannel Experience Redesign", 
+                category: "Innovation & Strategy",
+                description: "重新設計ASICS的全通路客戶體驗，整合線上線下服務，提升客戶滿意度。",
+                mediaSlots: [
+                    { id: 1, title: "體驗設計", type: "document", description: "完整的用戶體驗設計流程" },
+                    { id: 2, title: "原型展示", type: "image", description: "介面設計與互動原型" },
+                    { id: 3, title: "實作成果", type: "video", description: "實際操作展示影片" }
+                ]
+            },
+            4: { 
+                name: "Clinique 14-Day IG Campaign", 
+                category: "Marketing & Communication",
+                description: "為Clinique品牌設計的14天Instagram行銷活動，透過創意內容提升品牌知名度。",
+                mediaSlots: [
+                    { id: 1, title: "活動企劃", type: "document", description: "14天活動完整企劃書" },
+                    { id: 2, title: "創意素材", type: "image", description: "Instagram貼文設計與素材" },
+                    { id: 3, title: "成效分析", type: "presentation", description: "活動成效數據與分析報告" }
+                ]
+            },
+            5: { 
+                name: "Pamela Reif on Xiaohongshu", 
+                category: "Marketing & Communication",
+                description: "協助健身網紅Pamela Reif進軍小紅書平台，制定在地化內容策略。",
+                mediaSlots: [
+                    { id: 1, title: "平台策略", type: "document", description: "小紅書平台進入策略分析" },
+                    { id: 2, title: "內容規劃", type: "image", description: "內容創作與發布計劃" },
+                    { id: 3, title: "執行成果", type: "video", description: "平台經營成果展示" }
+                ]
+            },
+            6: { 
+                name: "Brand Enhancement Strategies of McDonald's", 
+                category: "Marketing & Communication",
+                description: "針對麥當勞品牌提升策略的深度研究，包含市場分析與品牌定位建議。",
+                mediaSlots: [
+                    { id: 1, title: "市場研究", type: "document", description: "麥當勞品牌市場分析報告" },
+                    { id: 2, title: "策略框架", type: "image", description: "品牌提升策略架構圖" },
+                    { id: 3, title: "提案簡報", type: "presentation", description: "品牌策略提案簡報" }
+                ]
+            },
+            7: { 
+                name: "Stock Price Prediction Model", 
+                category: "Technology & Insight",
+                description: "使用機器學習技術開發股價預測模型，結合技術分析與基本面分析。",
+                mediaSlots: [
+                    { id: 1, title: "程式碼", type: "document", description: "完整的預測模型程式碼" },
+                    { id: 2, title: "模型架構", type: "image", description: "機器學習模型架構圖" },
+                    { id: 3, title: "成果展示", type: "video", description: "模型預測結果展示" }
+                ]
+            },
+            8: { 
+                name: "Tech Policy Internship", 
+                category: "Technology & Insight",
+                description: "參與科技政策實習計劃，深入了解科技產業政策制定過程。",
+                mediaSlots: [
+                    { id: 1, title: "實習報告", type: "document", description: "科技政策實習心得報告" },
+                    { id: 2, title: "政策分析", type: "image", description: "科技政策分析圖表" },
+                    { id: 3, title: "工作紀錄", type: "presentation", description: "實習期間工作成果展示" }
+                ]
+            },
+            9: { 
+                name: "Python Automation System", 
+                category: "Technology & Insight",
+                description: "開發Python自動化系統，提升工作效率與數據處理能力。",
+                mediaSlots: [
+                    { id: 1, title: "系統文件", type: "document", description: "自動化系統技術文件" },
+                    { id: 2, title: "系統架構", type: "image", description: "系統架構與流程圖" },
+                    { id: 3, title: "操作示範", type: "video", description: "系統操作與功能展示" }
+                ]
+            },
+            10: { 
+                name: "Teaching Assistant", 
+                category: "Leadership & Growth",
+                description: "擔任教學助理，協助教授課程進行，培養領導與溝通能力。",
+                mediaSlots: [
+                    { id: 1, title: "教學資料", type: "document", description: "課程教學輔助資料" },
+                    { id: 2, title: "學生回饋", type: "image", description: "學生評價與回饋統計" },
+                    { id: 3, title: "教學影片", type: "video", description: "課程講解與教學示範" }
+                ]
+            },
+            11: { 
+                name: "Google Certifications", 
+                category: "Leadership & Growth",
+                description: "取得多項Google專業認證，持續提升數位行銷與分析能力。",
+                mediaSlots: [
+                    { id: 1, title: "認證證書", type: "document", description: "Google認證證書合集" },
+                    { id: 2, title: "學習歷程", type: "image", description: "認證學習過程紀錄" },
+                    { id: 3, title: "應用案例", type: "presentation", description: "認證知識實際應用案例" }
+                ]
+            },
+            12: { 
+                name: "BBA + Minor in Financial & Economic Law", 
+                category: "Leadership & Growth",
+                description: "商學學士學位主修並輔修財經法律，建立跨領域專業能力。",
+                mediaSlots: [
+                    { id: 1, title: "學術成果", type: "document", description: "學術研究與論文成果" },
+                    { id: 2, title: "課程紀錄", type: "image", description: "主修與輔修課程學習紀錄" },
+                    { id: 3, title: "專題報告", type: "presentation", description: "畢業專題與研究報告" }
+                ]
+            }
+        };
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get unit number from URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            currentUnit = parseInt(urlParams.get('unit')) || 1;
+
+            // Validate unit number
+            if (currentUnit < 1 || currentUnit > totalUnits) {
+                currentUnit = 1;
+            }
+
+            updatePageContent();
+            generateMediaGallery();
+            updateNavigation();
+            initScrollAnimations();
+            initFileUpload();
+            initKeyboardNavigation();
+        });
+
+        // Update page content
+        function updatePageContent() {
+            const unit = unitInfo[currentUnit];
+            if (!unit) return;
+
+            document.getElementById('project-title').textContent = unit.name;
+            document.getElementById('project-subtitle').textContent = unit.category;
+            document.getElementById('breadcrumb-unit').textContent = unit.name;
+            document.getElementById('project-description').textContent = unit.description;
+            document.title = `${unit.name} | 2025 Personal Website`;
+        }
+
+        // Generate media gallery
+        function generateMediaGallery() {
+            const unit = unitInfo[currentUnit];
+            if (!unit) return;
+
+            const gallery = document.getElementById('mediaGallery');
+            gallery.innerHTML = '';
+
+            unit.mediaSlots.forEach(slot => {
+                const mediaItem = createMediaItem(slot);
+                gallery.appendChild(mediaItem);
+            });
+        }
+
+        // Create media item
+        function createMediaItem(slot) {
+            const div = document.createElement('div');
+            div.className = 'media-item';
+            div.onclick = () => openMediaModal(slot);
+
+            const iconClass = getMediaIcon(slot.type);
+            
+            div.innerHTML = `
+                <div class="media-preview">
+                    <div class="text-center">
+                        <i class="${iconClass} media-icon"></i>
+                        <div class="upload-text">點擊上傳${slot.title}</div>
+                    </div>
+                </div>
+                <div class="media-info">
+                    <div class="media-title">${slot.title}</div>
+                    <div class="media-description">${slot.description}</div>
+                    <span class="media-type">${getMediaTypeName(slot.type)}</span>
+                </div>
+            `;
+
+            return div;
+        }
+
+        // Get media icon
+        function getMediaIcon(type) {
+            const icons = {
+                document: 'fas fa-file-alt',
+                image: 'fas fa-image',
+                video: 'fas fa-video',
+                presentation: 'fas fa-file-powerpoint'
+            };
+            return icons[type] || 'fas fa-file';
+        }
+
+        // Get media type name
+        function getMediaTypeName(type) {
+            const names = {
+                document: '文檔',
+                image: '圖片',
+                video: '影片',
+                presentation: '簡報'
+            };
+            return names[type] || '文件';
+        }
+
+        // Open media modal
+        function openMediaModal(slot) {
+            const modal = new bootstrap.Modal(document.getElementById('uploadModal'));
+            modal.show();
+        }
+
+        // Initialize file upload
+        function initFileUpload() {
+            const fileInput = document.getElementById('fileInput');
+            const uploadArea = document.getElementById('fileUploadArea');
+
+            uploadArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.classList.add('drag-over');
+            });
+
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.classList.remove('drag-over');
+            });
+
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.classList.remove('drag-over');
+                const files = e.dataTransfer.files;
+                handleFileUpload(files);
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                const files = e.target.files;
+                handleFileUpload(files);
+            });
+        }
+
+        // Handle file upload
+        function handleFileUpload(files) {
+            if (files.length === 0) return;
+
+            // 這裡可以添加實際的文件上傳邏輯
+            // 目前只是示例，顯示文件信息
+            Array.from(files).forEach(file => {
+                console.log('上傳文件:', file.name, file.type, file.size);
+                // 可以在這裡實現文件上傳到服務器的邏輯
+            });
+
+            // 關閉模態框
+            const modal = bootstrap.Modal.getInstance(document.getElementById('uploadModal'));
+            modal.hide();
+
+            // 顯示成功消息
+            alert('文件上傳成功！');
+        }
+
+        // Navigate to unit
+        function navigateToUnit(unitNumber) {
+            if (unitNumber >= 1 && unitNumber <= totalUnits && unitNumber !== currentUnit) {
+                window.location.href = `unit.html?unit=${unitNumber}`;
+            }
+        }
+
+        // Update navigation
+        function updateNavigation() {
+            const prevBtn = document.getElementById('prevUnitBtn');
+            const nextBtn = document.getElementById('nextUnitBtn');
+            const unitCounter = document.getElementById('unitCounter');
+
+            unitCounter.textContent = `專案 ${currentUnit} / ${totalUnits}`;
+
+            prevBtn.disabled = currentUnit <= 1;
+            nextBtn.disabled = currentUnit >= totalUnits;
+        }
+
+        // Initialize scroll animations
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
