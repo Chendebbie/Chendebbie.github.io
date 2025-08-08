@@ -357,7 +357,7 @@ class ChatBot {
                 
                 <div class="chatbot-panel" id="chatbotPanel">
                     <div class="chatbot-header">
-                        <div class="chatbot-title">🤖 AI 助教 v4</div>
+                        <div class="chatbot-title">🫧🔒 小聊一下吧</div>
                         <button class="chatbot-close" id="chatbotClose">
                             <i class="fas fa-times"></i>
                         </button>
@@ -365,7 +365,7 @@ class ChatBot {
                     
                     <div class="chat-messages" id="chatMessages">
                         <div class="message system">
-                            歡迎使用 AI 助教！我可以回答您關於欒斌教授或AI課程的任何問題。
+                            嗨～我是小聊天機器人！可以陪你閒聊、講笑話、或聊聊今天的心情！🔮
                         </div>
                     </div>
                     
@@ -583,7 +583,7 @@ class ChatBot {
         if (recentHistory.length === 0) {
             // 如果沒有歷史記錄，顯示歡迎訊息
             setTimeout(() => {
-                this.addMessage('你好，我是AI助教v4！有什麼關於欒斌教授或AI課程的問題想要問我嗎？', 'ai');
+                this.addMessage('哈囉～今天想聊點什麼呢？', 'ai');
             }, 1000);
         }
     }
