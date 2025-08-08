@@ -173,7 +173,7 @@ class ChatBot {
             }
 
             .message.system {
-                background: #28a745;
+                background: #6AA9FF;
                 color: white;
                 align-self: center;
                 font-size: 12px;
@@ -357,7 +357,7 @@ class ChatBot {
                 
                 <div class="chatbot-panel" id="chatbotPanel">
                     <div class="chatbot-header">
-                        <div class="chatbot-title">🫧🔒 小聊一下吧</div>
+                        <div class="chatbot-title">🫧 歡迎來到小聊一下吧🎐</div>
                         <button class="chatbot-close" id="chatbotClose">
                             <i class="fas fa-times"></i>
                         </button>
@@ -365,7 +365,7 @@ class ChatBot {
                     
                     <div class="chat-messages" id="chatMessages">
                         <div class="message system">
-                            嗨～我是小聊天機器人！可以陪你閒聊、講笑話、或聊聊今天的心情！🔮
+                            嗨～我是小聊天機器人！可以陪你閒聊、講笑話、或聊聊今天的心情🔮
                         </div>
                     </div>
                     
@@ -500,11 +500,6 @@ class ChatBot {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            
-            const data = await response.json();
-            
-            if (data.success && data.message) {
-                this.addMessage(data.message, 'ai');
                 
                 // 儲存對話到本地
                 this.saveChatToLocal(message, data.message);
