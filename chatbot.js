@@ -173,12 +173,14 @@ class ChatBot {
             }
 
             .message.system {
-                background: #6AA9FF;
-                color: white;
+                background: #EAF3FF;
+                color: #1f3b64;
+                border: 1px solid #d7e7ff;
                 align-self: center;
                 font-size: 12px;
                 max-width: 90%;
                 text-align: center;
+                border-radius: 12px;
             }
 
             .message.error-message {
@@ -505,8 +507,12 @@ const data = await response.json();
 
 if (data.success && data.message) {
     let botText = String(data.message || '');
-    botText = botText.replace(/^\s*(你好|嗨)[，, ]?我是小Ｄ[。!！]?\s*/i, '').trim();
-    if (!botText) botText = '今天想聊什麼呢？🙂';
+    // 把「我是AI助教…」等統一換成「我是小D」
+ botText = botText.replace(/我是\s*AI助教[^\n。！？]*/gi, '我是小D');
+ botText = botText.replace(/我是\s*大型語言模型[^\n。！？]*/gi, '我是小D');
+ botText = botText.replace(/由\s*Google\s*訓練/gi, '');
+ botText = botText.trim();
+ if (!botText) botText = '今天想聊什麼呢~';
 
     this.addMessage(botText, 'ai');
 
