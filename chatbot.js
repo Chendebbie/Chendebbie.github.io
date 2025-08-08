@@ -498,20 +498,27 @@ class ChatBot {
             });
             
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-                
-                // 儲存對話到本地
-                this.saveChatToLocal(message, data.message);
-                
-                // 如果聊天機器人已關閉，顯示通知
-                if (!this.chatbotPanel.classList.contains('active')) {
-                    this.showNotification();
-                }
-            } else {
-                throw new Error('回應格式錯誤');
-            }
-            
+    throw new Error(`HTTP error! status: ${response.status}`);
+}
+
+const data = await response.json();
+
+if (data.success && data.message) {
+    let botText = String(data.message || '');
+    botText = botText.replace(/^\s*(你好|嗨)[，, ]?我是小Ｄ[。!！]?\s*/i, '').trim();
+    if (!botText) botText = '今天想聊什麼呢？🙂';
+
+    this.addMessage(botText, 'ai');
+
+    this.saveChatToLocal(message, botText);
+
+    if (!this.chatbotPanel.classList.contains('active')) {
+        this.showNotification();
+    }
+} else {
+    throw new Error('回應格式錯誤');
+}
+
         } catch (error) {
             console.error('發送訊息時發生錯誤:', error);
             this.addMessage('抱歉，發生了錯誤。請檢查網路連線或稍後再試。', 'error-message');
