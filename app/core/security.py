@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, timezone
-from typing import Any, Optional
+from typing import Any
 
 from jose import JWTError, jwt
 from passlib.context import CryptContext
@@ -25,7 +25,7 @@ def get_password_hash(password: str) -> str:
 # JWT helpers
 # ---------------------------------------------------------------------------
 
-def create_access_token(subject: Any, scopes: list[str] | None = None, expires_delta: Optional[timedelta] = None) -> str:
+def create_access_token(subject: Any, scopes: list[str] | None = None, expires_delta: timedelta | None = None) -> str:
     expire = datetime.now(timezone.utc) + (
         expires_delta or timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     )
@@ -39,7 +39,7 @@ def create_access_token(subject: Any, scopes: list[str] | None = None, expires_d
     return jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
 
 
-def create_refresh_token(subject: Any, expires_delta: Optional[timedelta] = None) -> str:
+def create_refresh_token(subject: Any, expires_delta: timedelta | None = None) -> str:
     expire = datetime.now(timezone.utc) + (
         expires_delta or timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS)
     )

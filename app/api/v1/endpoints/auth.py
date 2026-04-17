@@ -10,6 +10,7 @@ from app.core.security import (
     create_access_token,
     create_refresh_token,
     decode_token,
+    get_password_hash,
     verify_password,
 )
 from app.db.session import get_db
@@ -80,8 +81,6 @@ async def register(user_in: UserCreate, db: Annotated[AsyncSession, Depends(get_
     result = await db.execute(select(User).where(User.username == user_in.username))
     if result.scalar_one_or_none():
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Username already taken")
-
-    from app.core.security import get_password_hash
 
     user = User(
         email=user_in.email,
